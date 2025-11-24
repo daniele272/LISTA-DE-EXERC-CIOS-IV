@@ -14,7 +14,7 @@ void exibirAluno(struct Aluno a) {
     printf("Nota: %.2f\n", a.nota);
 }
 
-// Função para criar aluno
+// Função para criar um aluno (retorna a struct criada)
 struct Aluno criarAluno() {
     struct Aluno a;
 
@@ -30,21 +30,27 @@ struct Aluno criarAluno() {
     return a;
 }
 
-// Função para remover aluno (limpa colocando valores padrão)
-void removerAluno(struct Aluno *a) {
-    strcpy(a->nome, "-");
-    a->idade = 0;
-    a->nota = 0.0;
+// Função para remover aluno (substitui por valores padrão)
+struct Aluno removerAluno() {
+    struct Aluno vazio;
+
+    strcpy(vazio.nome, "-");
+    vazio.idade = 0;
+    vazio.nota = 0.0;
+
+    return vazio;
 }
 
 int main() {
     struct Aluno alunos[4];
-    int total = 0; // quantidade atual de alunos
+    int total = 0;
     int opcao;
 
     // Inicializa todos como vazios
     for (int i = 0; i < 4; i++) {
         strcpy(alunos[i].nome, "-");
+        alunos[i].idade = 0;
+        alunos[i].nota = 0.0;
     }
 
     do {
@@ -80,7 +86,7 @@ int main() {
                 scanf("%d", &idx);
 
                 if (idx >= 0 && idx < 4) {
-                    removerAluno(&alunos[idx]);
+                    alunos[idx] = removerAluno();
                     printf("Aluno removido!\n");
                 } else {
                     printf("Índice inválido!\n");
